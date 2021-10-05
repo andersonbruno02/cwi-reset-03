@@ -1,19 +1,21 @@
 public class QuantidadeMinimaItem {
 
     public static boolean precisaReposicao(String item) {
-        if ("pão".equals(item)) {
-            return ItensPorQuantidade.pao < 600;
+        boolean repor = false;
+
+        if ("pão".equals(item) && ItensPorQuantidade.pao < 600) {
+            repor = true;
         }
 
-        if ("torta".equals(item)) {
-            return ItensPorQuantidade.torta < 10;
+        if ("torta".equals(item) && ItensPorQuantidade.torta < 10) {
+            repor = true;
         }
 
-        if ("sanduíche".equals(item)) {
-            return ItensPorQuantidade.sanduiche == 1;
+        if ("sanduíche".equals(item) && ItensPorQuantidade.sanduiche <= 1) {
+            repor = true;
         }
 
-        if ("café".equals(item)) {
+        if ("cafe".equals(item)) {
             return ItensPorQuantidade.leite < 12;
         }
 
@@ -21,6 +23,6 @@ public class QuantidadeMinimaItem {
             return ItensPorQuantidade.cafe < 12;
         }
 
-        return false;
+        return repor;
     }
 }

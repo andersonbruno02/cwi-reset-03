@@ -2,9 +2,10 @@
 public class Registradora {
 
     public static void main(String[] args) {
-    primeiroBug();
 
-   //     segundoBug();
+        primeiroBug();
+
+        //     segundoBug();
 
 //        terceiroBug();
 //
@@ -16,28 +17,36 @@ public class Registradora {
     }
 
     private static double registrarItem(String item, int quantidade) {
-        double precoItem = RelacaoPesoPreco.retornaPrecoProduto(item, quantidade);
 
-        if (QuantidadeMinimaItem.precisaReposicao(item)) {
-            if ("pao".equals(item) || "sanduiche".equals(item) || "torta".equals(item)) {
-                if (!DataProjeto.cozinhaEmFuncionamento()) {
-                    System.out.println("Cozinha fechada!");
+        double precoItem = 0;
+        if (ItensPorQuantidade.estoque(item, quantidade)) {
+            precoItem = RelacaoPesoPreco.retornaPrecoProduto(item, quantidade);
+            if (QuantidadeMinimaItem.precisaReposicao(item)) {
+                if ("pão".equals(item) || "sanduíche".equals(item) || "torta".equals(item)) {
+                    if (!DataProjeto.cozinhaEmFuncionamento()) {
+                        System.out.println("Cozinha fechada!");
+                    }
+                    ReposicaoCozinha.reporItem(item);
                 }
-                ReposicaoCozinha.reporItem(item);
-            }
 
-            if ("leite".equals(item) || "cafe".equals(item)) {
-                ReposicaoFornecedor.reporItem(item);
+                if ("leite".equals(item) || "cafe".equals(item)) {
+                    ReposicaoFornecedor.reporItem(item);
+                }
             }
+        } else {
+            System.out.println("Sem Estoque");
         }
+
+
+        System.out.println(ItensPorQuantidade.sanduiche);
 
         return precoItem;
     }
 
     private static void primeiroBug() {
         DataProjeto.criarDataComCozinhaFuncionando();
-        String item = "pão";
-        int quantidade = 4;
+        String item = "sanduíche";
+        int quantidade = 2;
 
         double precoTotal = registrarItem(item, quantidade);
 
@@ -46,8 +55,8 @@ public class Registradora {
 
     private static void segundoBug() {
         DataProjeto.criarDataComCozinhaEncerradaMasComDiaUtil();
-        String item = "torta";
-        int quantidade = 10;
+        String item = "sanduíche";
+        int quantidade = 1;
 
         double precoTotal = registrarItem(item, quantidade);
 
