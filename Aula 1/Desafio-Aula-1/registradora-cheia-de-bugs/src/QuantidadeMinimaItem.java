@@ -15,12 +15,12 @@ public class QuantidadeMinimaItem {
             repor = true;
         }
 
-        if ("cafe".equals(item)) {
-            return ItensPorQuantidade.leite < 12;
+        if ("café".equals(item) && ItensPorQuantidade.cafe < 12) {
+            repor = true;
         }
 
-        if ("leite".equals(item)) {
-            return ItensPorQuantidade.cafe < 12;
+        if ("leite".equals(item) && ItensPorQuantidade.leite < 12) {
+            repor = true;
         }
 
         return repor;

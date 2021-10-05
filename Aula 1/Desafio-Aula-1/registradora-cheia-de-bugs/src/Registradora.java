@@ -23,13 +23,15 @@ public class Registradora {
             precoItem = RelacaoPesoPreco.retornaPrecoProduto(item, quantidade);
             if (QuantidadeMinimaItem.precisaReposicao(item)) {
                 if ("pão".equals(item) || "sanduíche".equals(item) || "torta".equals(item)) {
-                    if (!DataProjeto.cozinhaEmFuncionamento()) {
+                    if (DataProjeto.cozinhaEmFuncionamento()) {
+                        ReposicaoCozinha.reporItem(item);
+                    } else {
                         System.out.println("Cozinha fechada!");
                     }
-                    ReposicaoCozinha.reporItem(item);
+
                 }
 
-                if ("leite".equals(item) || "cafe".equals(item)) {
+                if ("leite".equals(item) || "café".equals(item)) {
                     ReposicaoFornecedor.reporItem(item);
                 }
             }
@@ -37,16 +39,13 @@ public class Registradora {
             System.out.println("Sem Estoque");
         }
 
-
-        System.out.println(ItensPorQuantidade.sanduiche);
-
         return precoItem;
     }
 
     private static void primeiroBug() {
         DataProjeto.criarDataComCozinhaFuncionando();
-        String item = "sanduíche";
-        int quantidade = 2;
+        String item = "leite";
+        int quantidade = 3;
 
         double precoTotal = registrarItem(item, quantidade);
 
