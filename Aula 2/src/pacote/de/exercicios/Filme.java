@@ -3,12 +3,12 @@ package pacote.de.exercicios;
 public class Filme {
     private String nome;
     private String descricao;
-    private int duracao;
-    private int anoDeLancamento;
-    private double avaliacao;
+    private Integer duracao;
+    private Integer anoDeLancamento;
+    private Double avaliacao;
     private Diretor diretor;
 
-    public Filme(String nome, String descricao, int duracao, int anoDeLancamento, Diretor diretor, double avaliacao) {
+    public Filme(String nome, String descricao, Integer duracao, Integer anoDeLancamento, Diretor diretor, Double avaliacao) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracao = duracao;
