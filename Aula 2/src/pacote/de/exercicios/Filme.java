@@ -5,14 +5,16 @@ public class Filme {
     private String descricao;
     private int duracao;
     private int anoDeLancamento;
+    private double avaliacao;
     private Diretor diretor;
 
-    public Filme(String nome, String descricao, int duracao, int anoDeLancamento, Diretor diretor) {
+    public Filme(String nome, String descricao, int duracao, int anoDeLancamento, Diretor diretor, double avaliacao) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracao = duracao;
         this.anoDeLancamento = anoDeLancamento;
         this.diretor = diretor;
+        this.avaliacao = avaliacao;
     }
     public void reproduzir(){
         System.out.println("Nome do filme : " + this.nome);
