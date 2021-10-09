@@ -16,7 +16,7 @@ public class Diretor {
     public void apresentar() {
         System.out.println("Nome : " + this.nome);
         System.out.println("Idade : " + this.idade + " anos");
-        System.out.println("Gênero : " + this.genero);
+        System.out.println("Gênero : " + this.genero.getDescricao());
     }
 
     public String getNome() {
