@@ -28,34 +28,11 @@ public class Aplicacao {
         Filme filmeDois = null;
         Filme filmeTres = null;
         Filme filmeQuatro = null;
-        try {
-            filmeUm = new Filme("Macacos me Mordam", "Um filme sobre macacos mordedores", 120, 2020, diretor1, 5.0);
 
-        } catch (AvaliacaoForaDoPadraoException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            filmeDois = new Filme("Formiga espelhada", "O reflexo de uma trabalhadora", 90, 1992, diretor1, 4.5);
-
-        } catch (AvaliacaoForaDoPadraoException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            filmeTres = new Filme("Dinossauros espaciais", "Empolgante aventura no espaço!", 200, 2005, diretor1, 4.9);
-
-        } catch (AvaliacaoForaDoPadraoException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            filmeQuatro = new Filme("Sol submarino", "Um enigma ou um mistério?", 120, 2020, diretor1, 5.0);
-
-        } catch (AvaliacaoForaDoPadraoException e) {
-            e.printStackTrace();
-        }
-
+        filmeUm = criaEverificaNota("Macacos me Mordam", "Um filme sobre macacos mordedores", 120, 2020, diretor1, 5.0);
+        filmeDois = criaEverificaNota("Formiga espelhada", "O reflexo de uma trabalhadora", 90, 1992, diretor1, 4.5);
+        filmeTres = criaEverificaNota("Dinossauros espaciais", "Empolgante aventura no espaço!", 200, 2005, diretor1, 4.9);
+        filmeQuatro = criaEverificaNota("Sol submarino", "Um enigma ou um mistério?", 120, 2020, diretor1, 5.0);
         listaFilmes.add(filmeUm);
         listaFilmes.add(filmeDois);
         listaFilmes.add(filmeTres);
@@ -63,6 +40,16 @@ public class Aplicacao {
 
         return listaFilmes;
 
+    }
+    public static Filme criaEverificaNota(String nome, String descricao, Integer duracao, Integer anoDeLancamento, Diretor diretor, Double avaliacao) {
+        Filme filmeTemp = null;
+        try {
+            filmeTemp = new Filme(nome, descricao, duracao,anoDeLancamento,diretor, avaliacao);
+
+        } catch (AvaliacaoForaDoPadraoException e) {
+            e.printStackTrace();
+        }
+        return filmeTemp;
     }
 
 }
