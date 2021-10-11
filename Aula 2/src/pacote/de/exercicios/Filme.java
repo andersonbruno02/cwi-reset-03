@@ -20,9 +20,11 @@ public class Filme {
         this.avaliacao = avaliacao;
     }
     public void reproduzir(){
+        System.out.println("***************************************************");
         System.out.println("Nome do filme : " + this.nome);
         System.out.println("Descrição : " + this.descricao);
         System.out.println("Duração : " + this.duracao + " minutos");
         System.out.println("Diretor : " + diretor.getNome());
+        System.out.println("***************************************************");
     }
 }
