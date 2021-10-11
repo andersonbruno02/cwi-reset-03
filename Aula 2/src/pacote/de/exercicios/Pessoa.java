@@ -1,22 +1,29 @@
 package pacote.de.exercicios;
 
-public class Pessoa {
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+public abstract class Pessoa {
 
     private String nome;
-    private Integer idade;
+    private LocalDate dataNascimento;
     private Genero genero;
 
-    public Pessoa(String nome, Integer idade, Genero genero) {
+    public Pessoa(String nome, LocalDate dataNascimento, Genero genero) {
         this.nome = nome;
-        this.idade = idade;
+        this.dataNascimento = dataNascimento;
         this.genero = genero;
     }
      public void apresentar() {
          System.out.println("Nome: " + getNome());
-         System.out.println("Idade: " + this.idade);
+         calcularIdade(this.dataNascimento);
          System.out.println("Genero: " + this.genero.getDescricao());
      }
 
+     public void calcularIdade(LocalDate dataNascimento) {
+        long tempo = ChronoUnit.YEARS.between(dataNascimento, LocalDate.now());
+         System.out.println("Idade: " + tempo + " anos");
+     }
     public String getNome() {
         return nome;
     }
