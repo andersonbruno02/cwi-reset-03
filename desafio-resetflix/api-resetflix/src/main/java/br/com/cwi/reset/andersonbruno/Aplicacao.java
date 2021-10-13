@@ -13,11 +13,11 @@ public class Aplicacao {
 
         String nome = "Will Smith";
         LocalDate dataNascimento = LocalDate.of(1968, Month.SEPTEMBER, 25);
-        //StatusCarreira statusCarreira = StatusCarreira.EM_ATIVIDADE;
+        StatusCarreira statusCarreira = StatusCarreira.EM_ATIVIDADE;
         Integer anoInicioAtividade = 1986;
-        //AtorRequest atorRequest = new AtorRequest(nome, dataNascimento, statusCarreira, anoInicioAtividade);
+        AtorRequest atorRequest = new AtorRequest(nome, dataNascimento, statusCarreira, anoInicioAtividade);
 
-        //atorService.criarAtor(atorRequest);
+        atorService.criarAtor(atorRequest);
 
         List<Ator> atores = fakeDatabase.recuperaAtores();
 
