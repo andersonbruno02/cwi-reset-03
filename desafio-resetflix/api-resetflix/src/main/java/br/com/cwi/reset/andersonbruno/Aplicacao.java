@@ -18,10 +18,20 @@ public class Aplicacao {
         AtorRequest atorRequest = new AtorRequest(nome, dataNascimento, statusCarreira, anoInicioAtividade);
 
         atorService.criarAtor(atorRequest);
+        nome = "João";
+        dataNascimento = LocalDate.of(2000, Month.SEPTEMBER, 12);
+        statusCarreira = StatusCarreira.EM_ATIVIDADE;
+        anoInicioAtividade = 2019;
+
+        atorRequest = new AtorRequest(nome, dataNascimento, statusCarreira, anoInicioAtividade);
+
+        atorService.criarAtor(atorRequest);
+
 
         List<Ator> atores = fakeDatabase.recuperaAtores();
 
-        System.out.println("Deve conter 1 ator, quantidade encontrada: " + atores.size());
-        System.out.println("Primeiro ator deve ser 'Will Smith', valor encontrado: " + atores.get(0).getNome());
+        System.out.println("Deve conter atores com ids diferentes, quantidade encontrada: " + atores.size());
+        System.out.println(atores.get(0).getNome() + " tem id " + atores.get(0).getId());
+        System.out.println(atores.get(1).getNome() + " tem id " + atores.get(1).getId());
     }
 }
