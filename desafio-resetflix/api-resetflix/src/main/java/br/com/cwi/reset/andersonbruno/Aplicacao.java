@@ -11,27 +11,36 @@ public class Aplicacao {
 
         AtorService atorService = new AtorService(fakeDatabase);
 
-        String nome = "Will Smith";
-        LocalDate dataNascimento = LocalDate.of(1968, Month.SEPTEMBER, 25);
-        StatusCarreira statusCarreira = StatusCarreira.EM_ATIVIDADE;
-        Integer anoInicioAtividade = 1986;
-        AtorRequest atorRequest = new AtorRequest(nome, dataNascimento, statusCarreira, anoInicioAtividade);
 
-        atorService.criarAtor(atorRequest);
-        nome = "João";
-        dataNascimento = LocalDate.of(2000, Month.SEPTEMBER, 12);
-        statusCarreira = StatusCarreira.EM_ATIVIDADE;
-        anoInicioAtividade = 2019;
+        AtorRequest atorRequest;
 
-        atorRequest = new AtorRequest(nome, dataNascimento, statusCarreira, anoInicioAtividade);
+        atorRequest = new AtorRequest("Will Smith", LocalDate.of(1968, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 1986);
+        try {
+            atorService.criarAtor(atorRequest);
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
 
-        atorService.criarAtor(atorRequest);
 
+        atorRequest = new AtorRequest("João M", LocalDate.of(2023, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2010);
+        try {
+            atorService.criarAtor(atorRequest);
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
+
+        atorRequest = new AtorRequest("Pedro Alberto", LocalDate.of(2001, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2010);
+        try {
+            atorService.criarAtor(atorRequest);
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
 
         List<Ator> atores = fakeDatabase.recuperaAtores();
 
         System.out.println("Deve conter atores com ids diferentes, quantidade encontrada: " + atores.size());
         System.out.println(atores.get(0).getNome() + " tem id " + atores.get(0).getId());
         System.out.println(atores.get(1).getNome() + " tem id " + atores.get(1).getId());
+
     }
 }

@@ -7,13 +7,13 @@ public class AtorRequest {
     private String nome;
     private LocalDate dataNascimento;
     private StatusCarreira statusCarreira;
-    private Integer anoAtividade;
+    private Integer anoInicioAtividade;
 
-    public AtorRequest(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira, Integer anoAtividade) {
+    public AtorRequest(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira, Integer anoInicioAtividade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.statusCarreira = statusCarreira;
-        this.anoAtividade = anoAtividade;
+        this.anoInicioAtividade = anoInicioAtividade;
     }
 
     public String getNome() {
@@ -28,7 +28,7 @@ public class AtorRequest {
         return statusCarreira;
     }
 
-    public Integer getAnoAtividade() {
-        return anoAtividade;
+    public Integer getAnoInicioAtividade() {
+        return anoInicioAtividade;
     }
 }
