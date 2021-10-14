@@ -10,10 +10,11 @@ public class Aplicacao {
         FakeDatabase fakeDatabase = new FakeDatabase();
 
         AtorService atorService = new AtorService(fakeDatabase);
+        DiretorService diretorService = new DiretorService(fakeDatabase);
         //atorService.listarAtoresEmAtividade();
 
         AtorRequest atorRequest;
-
+        DiretorRequest diretorRequest;
         atorRequest = new AtorRequest("Will Smith", LocalDate.of(1968, Month.SEPTEMBER, 25), StatusCarreira.EM_ATIVIDADE, 1986);
         try {
             atorService.criarAtor(atorRequest);
@@ -21,6 +22,13 @@ public class Aplicacao {
             System.out.println(e.getMessage());
         }
 
+        diretorRequest = new DiretorRequest("David Fincher", LocalDate.of(1962, Month.AUGUST, 28), 1984);
+
+        try {
+            diretorService.cadastrarDiretor(diretorRequest);
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
 
         atorRequest = new AtorRequest("Maria Lucia", LocalDate.of(2003, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2020);
         try {

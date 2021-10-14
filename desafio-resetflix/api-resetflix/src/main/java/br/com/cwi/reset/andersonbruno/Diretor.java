@@ -9,4 +9,12 @@ public class Diretor {
     private LocalDate dataNascimento;
     private Integer anoInicioAtividade;
 
+    public Diretor(Integer id, String nome, LocalDate dataNascimento, Integer anoInicioAtividade) {
+        this.id = id;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.anoInicioAtividade = anoInicioAtividade;
+    }
+
+
 }
