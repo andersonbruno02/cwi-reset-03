@@ -108,4 +108,11 @@ public class AtorService {
         }
         return atorId;
     }
+    public List<Ator> consultarAtores() throws AtorExceptions {
+        List<Ator> atores = fakeDatabase.recuperaAtores();
+        if (atores.isEmpty()) {
+            throw new AtorExceptions("Nenhum ator cadastrado, favor cadastar atores.");
+        }
+        return atores;
+    }
 }

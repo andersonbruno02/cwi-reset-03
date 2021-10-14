@@ -36,7 +36,12 @@ public class Aplicacao {
             System.out.println(e.getMessage());
         }
 
-        List<Ator> atores = fakeDatabase.recuperaAtores();
+        List<Ator> atores = null;
+        try {
+            atores = atorService.consultarAtores();
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("Deve conter atores com ids diferentes, quantidade encontrada: " + atores.size());
         System.out.println(atores.get(0).getNome() + " tem id " + atores.get(0).getId());
