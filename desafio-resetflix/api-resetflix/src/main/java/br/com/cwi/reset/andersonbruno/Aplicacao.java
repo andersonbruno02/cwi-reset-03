@@ -10,7 +10,7 @@ public class Aplicacao {
         FakeDatabase fakeDatabase = new FakeDatabase();
 
         AtorService atorService = new AtorService(fakeDatabase);
-        atorService.listarAtoresEmAtividade();
+        //atorService.listarAtoresEmAtividade();
 
         AtorRequest atorRequest;
 
