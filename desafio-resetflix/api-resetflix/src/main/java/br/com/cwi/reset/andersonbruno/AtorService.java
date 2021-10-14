@@ -54,4 +54,39 @@ public class AtorService {
         Ator ator = new Ator(this.id, atorRequest.getNome(), atorRequest.getDataNascimento(), atorRequest.getStatusCarreira(), atorRequest.getAnoInicioAtividade());
         fakeDatabase.persisteAtor(ator);
     }
+
+    public List<Ator> listarAtoresEmAtividade() {
+        List<Ator> atores = fakeDatabase.recuperaAtores();
+        List<Ator> atoresEmAtividade = null;
+        if (atores.isEmpty()) {
+            System.out.println("Nenhum ator cadastrado, favor cadastar atores.");
+        }
+        for (Ator ator : atores) {
+            if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
+                atoresEmAtividade.add(ator);
+            }
+        }
+        if (atoresEmAtividade.isEmpty()) {
+            System.out.println("Ator não encontrato com o filtro " + StatusCarreira.EM_ATIVIDADE + ", favor informar outro filtro");
+        }
+        return atoresEmAtividade;
+    }
+
+    public List<Ator> listarAtoresEmAtividade(String filtroNome) {
+        List<Ator> atores = fakeDatabase.recuperaAtores();
+        List<Ator> atoresEmAtividade = null;
+        if (atores.isEmpty()) {
+            System.out.println("Nenhum ator cadastrado, favor cadastar atores.");
+        }
+        for (Ator ator : atores) {
+            if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE && ator.getNome().equals(filtroNome)) {
+                atoresEmAtividade.add(ator);
+            }
+        }
+        if (atoresEmAtividade.isEmpty()) {
+            System.out.println("Ator não encontrato com o filtro " + filtroNome + ", favor informar outro filtro");
+        }
+
+        return atoresEmAtividade;
+    }
 }

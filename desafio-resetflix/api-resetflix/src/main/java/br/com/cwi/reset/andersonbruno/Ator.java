@@ -22,6 +22,10 @@ public class Ator {
         return nome;
     }
 
+    public StatusCarreira getStatusCarreira() {
+        return statusCarreira;
+    }
+
     public Integer getId() {
         return id;
     }
