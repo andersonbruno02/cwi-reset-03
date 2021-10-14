@@ -29,7 +29,7 @@ public class Aplicacao {
             System.out.println(e.getMessage());
         }
 
-        atorRequest = new AtorRequest("Maria Lucia", LocalDate.of(2001, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2010);
+        atorRequest = new AtorRequest("Maria Clara", LocalDate.of(2001, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2010);
         try {
             atorService.criarAtor(atorRequest);
         } catch (AtorExceptions e) {
@@ -42,5 +42,10 @@ public class Aplicacao {
         System.out.println(atores.get(0).getNome() + " tem id " + atores.get(0).getId());
         System.out.println(atores.get(1).getNome() + " tem id " + atores.get(1).getId());
 
+        try {
+            System.out.println(atorService.consultarAtor(4).getNome());
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

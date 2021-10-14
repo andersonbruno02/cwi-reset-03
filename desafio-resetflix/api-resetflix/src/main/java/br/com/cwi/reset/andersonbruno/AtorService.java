@@ -93,10 +93,10 @@ public class AtorService {
 
     public Ator consultarAtor(Integer id) throws AtorExceptions {
         if (id == null) {
-            System.out.println("n ok");
+            throw new AtorExceptions("Campo obrigatório não informado. Favor informar o campo Id");
         }
         List<Ator> atores = fakeDatabase.recuperaAtores();
-        if (id > (atores.size()-1) || id < 0 ) {
+        if (id > atores.size() || id < 0 ) {
             throw new AtorExceptions("Nenhum ator encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
         }
 
