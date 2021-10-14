@@ -22,14 +22,14 @@ public class Aplicacao {
         }
 
 
-        atorRequest = new AtorRequest("João M", LocalDate.of(2023, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2010);
+        atorRequest = new AtorRequest("Maria Lucia", LocalDate.of(2003, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2020);
         try {
             atorService.criarAtor(atorRequest);
         } catch (AtorExceptions e) {
             System.out.println(e.getMessage());
         }
 
-        atorRequest = new AtorRequest("Pedro Alberto", LocalDate.of(2001, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2010);
+        atorRequest = new AtorRequest("Maria Lucia", LocalDate.of(2001, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2010);
         try {
             atorService.criarAtor(atorRequest);
         } catch (AtorExceptions e) {
