@@ -72,4 +72,22 @@ public class DiretorService {
         }
         return diretores;
     }
+
+    public Diretor consultarDiretor(Integer id) throws AtorExceptions {
+        if (id == null) {
+            throw new AtorExceptions("Campo obrigatório não informado. Favor informar o campo Id");
+        }
+        List<Diretor> diretores = fakeDatabase.recuperaDiretores();
+        if (id > diretores.size() || id < 0 ) {
+            throw new AtorExceptions("Nenhum diretor encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
+        }
+
+        Diretor diretorId = null;
+        for (Diretor diretor : diretores) {
+            if (diretor.getId().equals(id)) {
+                diretorId = diretor;
+            }
+        }
+        return diretorId;
+    }
 }
