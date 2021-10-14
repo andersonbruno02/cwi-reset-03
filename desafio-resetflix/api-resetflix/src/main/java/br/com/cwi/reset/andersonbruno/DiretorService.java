@@ -26,7 +26,7 @@ public class DiretorService {
         List<Diretor> diretores = fakeDatabase.recuperaDiretores();
         String nomeIgual = diretorRequest.getNome();
         for (Diretor diretor : diretores) {
-            if (diretorRequest.getNome().equals(nomeIgual)) {
+            if (diretor.getNome().equals(nomeIgual)) {
                 throw new AtorExceptions("Já existe um diretor cadastrado para o nome " + nomeIgual);
             }
         }
@@ -45,5 +45,31 @@ public class DiretorService {
         this.id++;
         Diretor diretor = new Diretor(this.id,diretorRequest.getNome(),diretorRequest.getDataNascimento(),diretorRequest.getAnoInicioAtividade());
         fakeDatabase.persisteDiretor(diretor);
+    }
+
+    public List<Diretor> listarDiretores(String filtroNome) throws AtorExceptions {
+        List<Diretor> diretores = fakeDatabase.recuperaDiretores();
+        List<Diretor> diretorFiltoNome = null;
+        if (diretores.isEmpty()) {
+            throw new AtorExceptions("Nenhum diretor cadastrado, favor cadastar diretores.");
+        } else {
+            for (Diretor diretor : diretores) {
+                if (diretor.getNome().equals(filtroNome)) {
+                    diretorFiltoNome.add(diretor);
+                }
+            }
+            if (diretorFiltoNome.isEmpty()) {
+                throw new AtorExceptions("Diretor não encontrato com o filtro " + filtroNome + ", favor informar outro filtro");
+            }
+        }
+        return diretorFiltoNome;
+    }
+
+    public List<Diretor> listarDiretores() throws AtorExceptions {
+        List<Diretor> diretores = fakeDatabase.recuperaDiretores();
+        if (diretores.isEmpty()) {
+            throw new AtorExceptions("Nenhum diretor cadastrado, favor cadastre diretores.");
+        }
+        return diretores;
     }
 }

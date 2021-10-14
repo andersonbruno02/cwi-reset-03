@@ -16,5 +16,11 @@ public class Diretor {
         this.anoInicioAtividade = anoInicioAtividade;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public String getNome() {
+        return nome;
+    }
 }

@@ -22,14 +22,6 @@ public class Aplicacao {
             System.out.println(e.getMessage());
         }
 
-        diretorRequest = new DiretorRequest("David Fincher", LocalDate.of(1962, Month.AUGUST, 28), 1984);
-
-        try {
-            diretorService.cadastrarDiretor(diretorRequest);
-        } catch (AtorExceptions e) {
-            System.out.println(e.getMessage());
-        }
-
         atorRequest = new AtorRequest("Maria Lucia", LocalDate.of(2003, Month.APRIL, 12), StatusCarreira.EM_ATIVIDADE, 2020);
         try {
             atorService.criarAtor(atorRequest);
@@ -60,5 +52,30 @@ public class Aplicacao {
         } catch (AtorExceptions e) {
             System.out.println(e.getMessage());
         }
+        diretorRequest = new DiretorRequest("Lana Wachowski", LocalDate.of(1965, Month.JUNE, 21), 1995);
+
+        try {
+            diretorService.cadastrarDiretor(diretorRequest);
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        diretorRequest = new DiretorRequest("David Fincher", LocalDate.of(1962, Month.AUGUST, 28), 1984);
+
+        try {
+            diretorService.cadastrarDiretor(diretorRequest);
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        List<Diretor> diretores = null;
+        try {
+            diretores = diretorService.listarDiretores();
+        } catch (AtorExceptions e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Deve conter diretores com ids diferentes, quantidade encontrada: " + diretores.size());
+        System.out.println(diretores.get(0).getNome() + " tem id " + atores.get(0).getId());
+        System.out.println(diretores.get(1).getNome() + " tem id " + atores.get(1).getId());
+
     }
 }
