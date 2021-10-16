@@ -16,12 +16,12 @@ import java.time.LocalDate;
 public class FilmeController {
 
     @GetMapping
-    public Filme getFilme() {
+    public Filme getFilme(String nome) {
         Diretor diretor1 = new Diretor("Anderson", LocalDate.parse("1992-02-01"),1,Genero.MASCULINO);
 
         Filme filme = null;
         try {
-            filme = new Filme("Nome qualquer","Descricao aleatoria",120,1999,5.0,diretor1);
+            filme = new Filme(nome,"Descricao aleatoria",120,1999,5.0,diretor1);
         } catch (AvaliacaoForaDoPadraoException e) {
             e.printStackTrace();
         }

@@ -10,5 +10,7 @@ public class Diretor extends Pessoa {
         this.quantidadeFilmes = quantidadeFilmes;
     }
 
-
+    public Integer getQuantidadeFilmes() {
+        return quantidadeFilmes;
+    }
 }
