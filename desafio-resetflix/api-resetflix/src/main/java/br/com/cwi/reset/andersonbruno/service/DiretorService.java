@@ -1,4 +1,9 @@
-package br.com.cwi.reset.andersonbruno;
+package br.com.cwi.reset.andersonbruno.service;
+
+import br.com.cwi.reset.andersonbruno.exceptions.AtorExceptions;
+import br.com.cwi.reset.andersonbruno.domain.Diretor;
+import br.com.cwi.reset.andersonbruno.FakeDatabase;
+import br.com.cwi.reset.andersonbruno.request.DiretorRequest;
 
 import java.time.LocalDate;
 import java.util.List;

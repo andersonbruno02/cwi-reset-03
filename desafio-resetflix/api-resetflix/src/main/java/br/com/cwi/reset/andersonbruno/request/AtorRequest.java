@@ -1,4 +1,6 @@
-package br.com.cwi.reset.andersonbruno;
+package br.com.cwi.reset.andersonbruno.request;
+
+import br.com.cwi.reset.andersonbruno.domain.StatusCarreira;
 
 import java.time.LocalDate;
 

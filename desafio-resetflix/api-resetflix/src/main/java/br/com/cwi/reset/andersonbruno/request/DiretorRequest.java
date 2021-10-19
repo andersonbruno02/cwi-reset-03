@@ -1,4 +1,4 @@
-package br.com.cwi.reset.andersonbruno;
+package br.com.cwi.reset.andersonbruno.request;
 
 import java.time.LocalDate;
 

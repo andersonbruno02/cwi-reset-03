@@ -1,4 +1,4 @@
-package br.com.cwi.reset.andersonbruno;
+package br.com.cwi.reset.andersonbruno.domain;
 
 import java.time.LocalDate;
 import java.util.List;

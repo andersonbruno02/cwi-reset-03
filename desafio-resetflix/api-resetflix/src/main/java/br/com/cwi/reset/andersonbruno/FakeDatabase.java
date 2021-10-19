@@ -1,5 +1,7 @@
 package br.com.cwi.reset.andersonbruno;
 
+import br.com.cwi.reset.andersonbruno.domain.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
