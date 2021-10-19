@@ -81,23 +81,24 @@ public class AtorService {
         return retorno;
     }
 
-    public List<Ator> listarAtoresEmAtividade(String filtroNome) throws customExceptions {
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws customExceptions {
         List<Ator> atores = fakeDatabase.recuperaAtores();
-        List<Ator> atoresEmAtividade = null;
+
         if (atores.isEmpty()) {
             throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
-        } else {
-            for (Ator ator : atores) {
-                if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE && ator.getNome().equals(filtroNome)) {
-                    atoresEmAtividade.add(ator);
+        }
+        List<AtorEmAtividade> retorno = new ArrayList<>();
+        for (Ator ator : atores) {
+            if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
+                if(ator.getNome().equals(filtroNome)) {
+                    retorno.add(new AtorEmAtividade(ator.getId(), ator.getNome(), ator.getDataNascimento()));
                 }
             }
-            if (atoresEmAtividade.isEmpty()) {
-                throw new customExceptions("Ator não encontrato com o filtro " + filtroNome + ", favor informar outro filtro");
-            }
         }
-
-        return atoresEmAtividade;
+        if (retorno.isEmpty()) {
+            throw new customExceptions("Ator não encontrato com o filtro " + StatusCarreira.EM_ATIVIDADE + ", favor informar outro filtro");
+        }
+        return retorno;
     }
 
     public Ator consultarAtor(Integer id) throws customExceptions {
