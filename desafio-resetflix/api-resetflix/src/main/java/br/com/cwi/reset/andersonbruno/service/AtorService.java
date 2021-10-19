@@ -1,12 +1,14 @@
 package br.com.cwi.reset.andersonbruno.service;
 
 import br.com.cwi.reset.andersonbruno.domain.Ator;
+import br.com.cwi.reset.andersonbruno.domain.AtorEmAtividade;
 import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
 import br.com.cwi.reset.andersonbruno.FakeDatabase;
 import br.com.cwi.reset.andersonbruno.request.AtorRequest;
 import br.com.cwi.reset.andersonbruno.domain.StatusCarreira;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AtorService {
@@ -61,21 +63,22 @@ public class AtorService {
         fakeDatabase.persisteAtor(ator);
     }
 
-    public List<Ator> listarAtoresEmAtividade() throws customExceptions {
+    public List<AtorEmAtividade> listarAtoresEmAtividade() throws customExceptions {
         List<Ator> atores = fakeDatabase.recuperaAtores();
-        List<Ator> atoresEmAtividade = null;
+
         if (atores.isEmpty()) {
             throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
         }
+        List<AtorEmAtividade> retorno = new ArrayList<>();
         for (Ator ator : atores) {
             if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
-                atoresEmAtividade.add(ator);
+                retorno.add(new AtorEmAtividade(ator.getId(),ator.getNome(),ator.getDataNascimento()));
             }
         }
-        if (atoresEmAtividade.isEmpty()) {
+        if (retorno.isEmpty()) {
             throw new customExceptions("Ator não encontrato com o filtro " + StatusCarreira.EM_ATIVIDADE + ", favor informar outro filtro");
         }
-        return atoresEmAtividade;
+        return retorno;
     }
 
     public List<Ator> listarAtoresEmAtividade(String filtroNome) throws customExceptions {
