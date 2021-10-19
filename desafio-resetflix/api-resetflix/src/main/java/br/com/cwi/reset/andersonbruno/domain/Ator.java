@@ -29,4 +29,12 @@ public class Ator {
     public Integer getId() {
         return id;
     }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public Integer getAnoInicioAtividade() {
+        return anoInicioAtividade;
+    }
 }

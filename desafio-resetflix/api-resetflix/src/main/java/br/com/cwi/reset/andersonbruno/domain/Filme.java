@@ -11,6 +11,7 @@ public class Filme {
     private String capaFilme;
     private List<Genero> generos;
     private Diretor diretor;
+    private Estudio estudio;
     private List<PersonagemAtor> personagens;
     private String resumo;
 
