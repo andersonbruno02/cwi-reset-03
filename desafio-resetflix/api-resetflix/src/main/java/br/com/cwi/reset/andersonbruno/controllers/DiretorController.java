@@ -26,17 +26,17 @@ public class DiretorController {
         this.diretorService.cadastrarDiretor(diretorRequest);
     }
 
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Diretor> listarDiretores() throws customExceptions{
-//        return this.diretorService.listarDiretores();
-//    }
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Diretor> listarDiretores(String filtroNome) throws customExceptions{
         final List<Diretor> diretores = this.diretorService.listarDiretores(filtroNome);
         return diretores;
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Diretor consultarDiretor(@PathVariable Integer id) throws customExceptions{
+        return this.diretorService.consultarDiretor(id);
     }
 
 }
