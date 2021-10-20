@@ -8,6 +8,7 @@ import br.com.cwi.reset.andersonbruno.request.DiretorRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DiretorService {
     private Integer id = 0;
@@ -63,7 +64,7 @@ public class DiretorService {
         } else {
             List<Diretor> diretorFiltoNome = new ArrayList<>();
             for (Diretor diretor : diretores) {
-                if (diretor.getNome().equals(filtroNome)) {
+                if (diretor.getNome().toLowerCase(Locale.ROOT).contains(filtroNome.toLowerCase(Locale.ROOT))) {
                     diretorFiltoNome.add(new Diretor(diretor.getId(), diretor.getNome(), diretor.getDataNascimento(), diretor.getAnoInicioAtividade()));
                 }
             }
@@ -75,20 +76,12 @@ public class DiretorService {
         }
     }
 
-//    public List<Diretor> listarDiretores() throws customExceptions {
-//        List<Diretor> diretores = fakeDatabase.recuperaDiretores();
-//        if (diretores.isEmpty()) {
-//            throw new customExceptions("Nenhum diretor cadastrado, favor cadastre diretores.");
-//        }
-//        return diretores;
-//    }
-
     public Diretor consultarDiretor(Integer id) throws customExceptions {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo Id");
         }
         List<Diretor> diretores = fakeDatabase.recuperaDiretores();
-        if (id > diretores.size() || id < 0) {
+        if (id > diretores.size() || id <= 0) {
             throw new customExceptions("Nenhum diretor encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
         }
 

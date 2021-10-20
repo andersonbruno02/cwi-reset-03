@@ -10,6 +10,7 @@ import br.com.cwi.reset.andersonbruno.domain.StatusCarreira;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AtorService {
 
@@ -73,7 +74,7 @@ public class AtorService {
         if(filtroNome != null) {
             for (Ator ator : atores) {
                 if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
-                    if (ator.getNome().equals(filtroNome)) {
+                    if (ator.getNome().toLowerCase(Locale.ROOT).contains(filtroNome.toLowerCase(Locale.ROOT))) {
                         atorFiltroNome.add(new AtorEmAtividade(ator.getId(), ator.getNome(), ator.getDataNascimento()));
                     }
                 }
@@ -96,7 +97,7 @@ public class AtorService {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo Id");
         }
         List<Ator> atores = fakeDatabase.recuperaAtores();
-        if (id > atores.size() || id < 0 ) {
+        if (id > atores.size() || id <= 0 ) {
             throw new customExceptions("Nenhum ator encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
         }
 

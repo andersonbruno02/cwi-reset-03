@@ -22,6 +22,7 @@ public class FakeDatabase {
     private List<Filme> filmes = new ArrayList<>();
     private List<PersonagemAtor> personagens = new ArrayList<>();
 
+
     public void persisteAtor(Ator ator) {
         atores.add(ator);
     }
