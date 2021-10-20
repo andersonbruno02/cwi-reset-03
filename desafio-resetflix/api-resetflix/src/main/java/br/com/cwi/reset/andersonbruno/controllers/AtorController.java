@@ -36,14 +36,14 @@ public class AtorController {
 
     @GetMapping("/em_atividade")
     @ResponseStatus(HttpStatus.OK)
-    public List<AtorEmAtividade> listarAtoresEmAtividade() throws customExceptions {
-        return this.atorService.listarAtoresEmAtividade();
-    }
-
-    @GetMapping("/em_atividade/{filtroNome}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<AtorEmAtividade> listarAtoresEmAtividade(@PathVariable String filtroNome) throws customExceptions {
+    public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws customExceptions {
         final List<AtorEmAtividade> atoresEmAtividade = this.atorService.listarAtoresEmAtividade(filtroNome);
         return atoresEmAtividade;
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Ator consultarAtor(@PathVariable Integer id) throws customExceptions{
+        return this.atorService.consultarAtor(id);
     }
 }

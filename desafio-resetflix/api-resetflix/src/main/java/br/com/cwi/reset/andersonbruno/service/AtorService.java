@@ -63,42 +63,32 @@ public class AtorService {
         fakeDatabase.persisteAtor(ator);
     }
 
-    public List<AtorEmAtividade> listarAtoresEmAtividade() throws customExceptions {
-        List<Ator> atores = fakeDatabase.recuperaAtores();
-
-        if (atores.isEmpty()) {
-            throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
-        }
-        List<AtorEmAtividade> retorno = new ArrayList<>();
-        for (Ator ator : atores) {
-            if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
-                retorno.add(new AtorEmAtividade(ator.getId(),ator.getNome(),ator.getDataNascimento()));
-            }
-        }
-        if (retorno.isEmpty()) {
-            throw new customExceptions("Ator não encontrato com o filtro " + StatusCarreira.EM_ATIVIDADE + ", favor informar outro filtro");
-        }
-        return retorno;
-    }
-
     public List<AtorEmAtividade> listarAtoresEmAtividade(String filtroNome) throws customExceptions {
-        List<Ator> atores = fakeDatabase.recuperaAtores();
+        final List<Ator> atores = fakeDatabase.recuperaAtores();
 
         if (atores.isEmpty()) {
             throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
         }
-        List<AtorEmAtividade> retorno = new ArrayList<>();
-        for (Ator ator : atores) {
-            if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
-                if(ator.getNome().equals(filtroNome)) {
-                    retorno.add(new AtorEmAtividade(ator.getId(), ator.getNome(), ator.getDataNascimento()));
+        final List<AtorEmAtividade> atorFiltroNome = new ArrayList<>();
+        if(filtroNome != null) {
+            for (Ator ator : atores) {
+                if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
+                    if (ator.getNome().equals(filtroNome)) {
+                        atorFiltroNome.add(new AtorEmAtividade(ator.getId(), ator.getNome(), ator.getDataNascimento()));
+                    }
+                }
+            }
+        } else {
+            for (Ator ator: atores) {
+                if (ator.getStatusCarreira() == StatusCarreira.EM_ATIVIDADE) {
+                        atorFiltroNome.add(new AtorEmAtividade(ator.getId(), ator.getNome(), ator.getDataNascimento()));
                 }
             }
         }
-        if (retorno.isEmpty()) {
+        if (atorFiltroNome.isEmpty()) {
             throw new customExceptions("Ator não encontrato com o filtro " + StatusCarreira.EM_ATIVIDADE + ", favor informar outro filtro");
         }
-        return retorno;
+        return atorFiltroNome;
     }
 
     public Ator consultarAtor(Integer id) throws customExceptions {
