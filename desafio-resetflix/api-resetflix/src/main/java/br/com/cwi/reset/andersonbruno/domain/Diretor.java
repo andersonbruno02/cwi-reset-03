@@ -31,4 +31,5 @@ public class Diretor {
     public Integer getAnoInicioAtividade() {
         return anoInicioAtividade;
     }
+
 }
