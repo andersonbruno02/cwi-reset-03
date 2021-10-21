@@ -1,9 +1,10 @@
 package br.com.cwi.reset.andersonbruno.service;
 
 import br.com.cwi.reset.andersonbruno.FakeDatabase;
-import br.com.cwi.reset.andersonbruno.domain.*;
-import br.com.cwi.reset.andersonbruno.request.PersonagemRequest;
-import br.com.cwi.reset.andersonbruno.service.DiretorService;
+import br.com.cwi.reset.andersonbruno.domain.Diretor;
+import br.com.cwi.reset.andersonbruno.domain.Filme;
+import br.com.cwi.reset.andersonbruno.domain.Genero;
+import br.com.cwi.reset.andersonbruno.domain.PersonagemAtor;
 import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
 import br.com.cwi.reset.andersonbruno.request.FilmeRequest;
 
@@ -125,7 +126,7 @@ public class FilmeService {
         }
 
         if (nomeAtor != null) {
-            
+
         }
 
         return filmes;
