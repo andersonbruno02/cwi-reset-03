@@ -19,12 +19,12 @@ public class PersonagemService {
         this.atorService = new AtorService(FakeDatabase.getInstance());
     }
 
-    public void criarPersonagem(List<PersonagemRequest> requests) throws customExceptions{
-        List<PersonagemAtor> personagens = fakeDatabase.recuperaPersonagens();
+    public void criarPersonagem(List<PersonagemRequest> requests) throws customExceptions {
+
         List<Ator> atores = fakeDatabase.recuperaAtores();
 
-        for (PersonagemRequest request: requests) {
-
+        for (PersonagemRequest request : requests) {
+            List<PersonagemAtor> personagens = fakeDatabase.recuperaPersonagens();
             if (request.getNomePersonagem() == null || request.getNomePersonagem().equals("")) {
                 throw new customExceptions("Campo obrigatório não informado. Favor informar o campo nomePersonagem");
             }
@@ -40,6 +40,14 @@ public class PersonagemService {
             if (atorService.consultarAtor(request.getIdAtor()) == null) {
                 throw new customExceptions("Nenhum ator encontrado com o parâmetro id=" + request.getIdAtor() + ", favor verifique os parâmetros informados.");
             }
+            for (PersonagemAtor personagem : personagens) {
+                if (personagem.getIdAtor().equals(request.getIdAtor())) {
+                    if (personagem.getNomePersonagem().equals(request.getNomePersonagem())) {
+                        throw new customExceptions("Não é permitido informar o mesmo ator/personagem mais de uma vez para o mesmo filme.");
+                    }
+                }
+            }
+            
             this.id++;
             PersonagemAtor personagemAtor = new PersonagemAtor(this.id, request.getIdAtor(), request.getNomePersonagem(), request.getDescricaoPersonagem(), request.getTipoAtuacao());
             fakeDatabase.persistePersonagem(personagemAtor);
