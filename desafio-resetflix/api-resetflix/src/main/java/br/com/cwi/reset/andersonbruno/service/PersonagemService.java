@@ -3,9 +3,9 @@ package br.com.cwi.reset.andersonbruno.service;
 import br.com.cwi.reset.andersonbruno.FakeDatabase;
 import br.com.cwi.reset.andersonbruno.domain.Ator;
 import br.com.cwi.reset.andersonbruno.domain.PersonagemAtor;
+import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
 import br.com.cwi.reset.andersonbruno.request.PersonagemRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PersonagemService {
@@ -19,12 +19,30 @@ public class PersonagemService {
         this.atorService = new AtorService(FakeDatabase.getInstance());
     }
 
-    public void criarPersonagem(PersonagemRequest personagemRequests) {
+    public void criarPersonagem(List<PersonagemRequest> requests) throws customExceptions{
         List<PersonagemAtor> personagens = fakeDatabase.recuperaPersonagens();
         List<Ator> atores = fakeDatabase.recuperaAtores();
-        this.id++;
-        PersonagemAtor personagemAtor = new PersonagemAtor(this.id,personagemRequests.getIdAtor(), personagemRequests.getNomePersonagem(), personagemRequests.getDescricaoPersonagem(), personagemRequests.getTipoAtuacao());
-        fakeDatabase.persistePersonagem(personagemAtor);
-    }
 
+        for (PersonagemRequest request: requests) {
+
+            if (request.getNomePersonagem() == null || request.getNomePersonagem().equals("")) {
+                throw new customExceptions("Campo obrigatório não informado. Favor informar o campo nomePersonagem");
+            }
+            if (request.getDescricaoPersonagem() == null || request.getDescricaoPersonagem().equals("")) {
+                throw new customExceptions("Campo obrigatório não informado. Favor informar o campo descricaoPersonagem");
+            }
+            if (request.getIdAtor() == null) {
+                throw new customExceptions("Campo obrigatório não informado. Favor informar o campo idAtor");
+            }
+            if (request.getTipoAtuacao() == null) {
+                throw new customExceptions("Campo obrigatório não informado. Favor informar o campo tipoAtuacao");
+            }
+            if (atorService.consultarAtor(request.getIdAtor()) == null) {
+                throw new customExceptions("Nenhum ator encontrado com o parâmetro id=" + request.getIdAtor() + ", favor verifique os parâmetros informados.");
+            }
+            this.id++;
+            PersonagemAtor personagemAtor = new PersonagemAtor(this.id, request.getIdAtor(), request.getNomePersonagem(), request.getDescricaoPersonagem(), request.getTipoAtuacao());
+            fakeDatabase.persistePersonagem(personagemAtor);
+        }
+    }
 }
