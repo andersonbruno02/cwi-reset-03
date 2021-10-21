@@ -91,9 +91,10 @@ public class FilmeService {
             }
             return filtroNome;
         }
-        final List<Filme> filtroDiretor = new ArrayList<>();
+
 
         if (nomeDiretor != null) {
+            final List<Filme> filtroDiretor = new ArrayList<>();
             final List<Diretor> diretorTemporario = diretorService.listarDiretores(nomeDiretor);
             for (Filme filme : filmes) {
                 for (Diretor diretor : diretorTemporario) {
@@ -106,6 +107,25 @@ public class FilmeService {
                 throw new customExceptions("Filme não encontrado com o filtro nomeDiretor=" + nomeDiretor + ", favor informar outro filtro.");
             }
             return filtroDiretor;
+        }
+
+        if (nomePersonagem != null) {
+            final List<Filme> filtroPersonagem = new ArrayList<>();
+            for (Filme filme : filmes) {
+                for (PersonagemAtor personagemAtor : filme.getPersonagens()) {
+                    if (personagemAtor.getNomePersonagem().toLowerCase(Locale.ROOT).contains(nomePersonagem.toLowerCase(Locale.ROOT))) {
+                        filtroPersonagem.add(new Filme(filme.getId(), filme.getNome(), filme.getAnoLancamento(), filme.getCapaFilme(), filme.getGeneros(), filme.getIdDiretor(), filme.getIdDstudio(), filme.getPersonagens(), filme.getResumo()));
+                    }
+                }
+            }
+            if (filtroPersonagem.isEmpty()) {
+                throw new customExceptions("Filme não encontrado com o filtro nomePersonagem=" + nomePersonagem + ", favor informar outro filtro.");
+            }
+            return filtroPersonagem;
+        }
+
+        if (nomeAtor != null) {
+            
         }
 
         return filmes;
