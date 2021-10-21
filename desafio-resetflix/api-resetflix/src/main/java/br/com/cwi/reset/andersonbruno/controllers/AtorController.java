@@ -30,8 +30,8 @@ public class AtorController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Ator> consultarAtores() throws customExceptions {
-        return this.atorService.consultarAtores();
+    public List<Ator> consultarAtores(String filtroNome) throws customExceptions {
+        return this.atorService.consultarAtores(filtroNome);
     }
 
     @GetMapping("/em_atividade")

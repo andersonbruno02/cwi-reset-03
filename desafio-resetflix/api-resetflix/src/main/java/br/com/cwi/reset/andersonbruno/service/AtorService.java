@@ -109,11 +109,23 @@ public class AtorService {
         }
         return atorId;
     }
-    public List<Ator> consultarAtores() throws customExceptions {
+    public List<Ator> consultarAtores(String filtroNome) throws customExceptions {
         List<Ator> atores = fakeDatabase.recuperaAtores();
         if (atores.isEmpty()) {
             throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
         }
-        return atores;
+        final List<Ator> atorFiltroNome = new ArrayList<>();
+        if(filtroNome != null) {
+            for (Ator ator : atores) {
+                    if (ator.getNome().toLowerCase(Locale.ROOT).contains(filtroNome.toLowerCase(Locale.ROOT))) {
+                        atorFiltroNome.add(new Ator(ator.getId(), ator.getNome(), ator.getDataNascimento(),ator.getStatusCarreira(),ator.getAnoInicioAtividade()));
+                    }
+            }
+        } else {
+            for (Ator ator : atores) {
+                    atorFiltroNome.add(new Ator(ator.getId(), ator.getNome(), ator.getDataNascimento(),ator.getStatusCarreira(),ator.getAnoInicioAtividade()));
+                }
+        }
+        return atorFiltroNome;
     }
 }

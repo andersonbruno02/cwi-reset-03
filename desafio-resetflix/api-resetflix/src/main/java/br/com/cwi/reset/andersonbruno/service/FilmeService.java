@@ -1,10 +1,7 @@
 package br.com.cwi.reset.andersonbruno.service;
 
 import br.com.cwi.reset.andersonbruno.FakeDatabase;
-import br.com.cwi.reset.andersonbruno.domain.Diretor;
-import br.com.cwi.reset.andersonbruno.domain.Filme;
-import br.com.cwi.reset.andersonbruno.domain.Genero;
-import br.com.cwi.reset.andersonbruno.domain.PersonagemAtor;
+import br.com.cwi.reset.andersonbruno.domain.*;
 import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
 import br.com.cwi.reset.andersonbruno.request.FilmeRequest;
 
@@ -126,8 +123,26 @@ public class FilmeService {
         }
 
         if (nomeAtor != null) {
+            final List<Filme> filtroAtor = new ArrayList<>();
+            final List<Ator> atores = atorService.consultarAtores(nomeAtor);
 
+            for (Filme filme : filmes) {
+                for (PersonagemAtor personagemAtor : filme.getPersonagens()) {
+                    for (Ator ator : atores) {
+                        if (personagemAtor.getIdAtor() == ator.getId()) {
+                            filtroAtor.add(new Filme(filme.getId(), filme.getNome(), filme.getAnoLancamento(), filme.getCapaFilme(), filme.getGeneros(), filme.getIdDiretor(), filme.getIdDstudio(), filme.getPersonagens(), filme.getResumo()));
+                        }
+                    }
+
+                }
+            }
+            if (filtroAtor.isEmpty()) {
+                throw new customExceptions("Filme não encontrado com o filtro nomeAtor=" + nomeAtor + ", favor informar outro filtro.");
+            }
+
+            return filtroAtor;
         }
+
 
         return filmes;
     }
