@@ -7,7 +7,9 @@ import br.com.cwi.reset.andersonbruno.service.DiretorService;
 import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
 import br.com.cwi.reset.andersonbruno.request.FilmeRequest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FilmeService {
 
@@ -68,5 +70,44 @@ public class FilmeService {
             }
         }
 
+    }
+
+    public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws customExceptions {
+        final List<Filme> filmes = fakeDatabase.recuperaFilmes();
+
+        if (filmes.isEmpty()) {
+            throw new customExceptions("Nenhum filme cadastrado, favor cadastrar filmes.");
+        }
+
+        if (nomeFilme != null) {
+            final List<Filme> filtroNome = new ArrayList<>();
+            for (Filme filme : filmes) {
+                if (filme.getNome().toLowerCase(Locale.ROOT).contains(nomeFilme.toLowerCase(Locale.ROOT))) {
+                    filtroNome.add(new Filme(filme.getId(), filme.getNome(), filme.getAnoLancamento(), filme.getCapaFilme(), filme.getGeneros(), filme.getIdDiretor(), filme.getIdDstudio(), filme.getPersonagens(), filme.getResumo()));
+                }
+            }
+            if (filtroNome.isEmpty()) {
+                throw new customExceptions("Filme não encontrado com o filtro nomeFilme=" + nomeFilme + ", favor informar outro filtro.");
+            }
+            return filtroNome;
+        }
+        final List<Filme> filtroDiretor = new ArrayList<>();
+
+        if (nomeDiretor != null) {
+            final List<Diretor> diretorTemporario = diretorService.listarDiretores(nomeDiretor);
+            for (Filme filme : filmes) {
+                for (Diretor diretor : diretorTemporario) {
+                    if (filme.getIdDiretor() == diretor.getId()) {
+                        filtroDiretor.add(new Filme(filme.getId(), filme.getNome(), filme.getAnoLancamento(), filme.getCapaFilme(), filme.getGeneros(), filme.getIdDiretor(), filme.getIdDstudio(), filme.getPersonagens(), filme.getResumo()));
+                    }
+                }
+            }
+            if (filtroDiretor.isEmpty()) {
+                throw new customExceptions("Filme não encontrado com o filtro nomeDiretor=" + nomeDiretor + ", favor informar outro filtro.");
+            }
+            return filtroDiretor;
+        }
+
+        return filmes;
     }
 }

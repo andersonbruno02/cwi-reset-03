@@ -47,7 +47,7 @@ public class PersonagemService {
                     }
                 }
             }
-            
+
             this.id++;
             PersonagemAtor personagemAtor = new PersonagemAtor(this.id, request.getIdAtor(), request.getNomePersonagem(), request.getDescricaoPersonagem(), request.getTipoAtuacao());
             fakeDatabase.persistePersonagem(personagemAtor);
