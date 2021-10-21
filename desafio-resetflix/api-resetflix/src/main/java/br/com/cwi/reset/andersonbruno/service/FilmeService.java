@@ -1,10 +1,7 @@
 package br.com.cwi.reset.andersonbruno.service;
 
 import br.com.cwi.reset.andersonbruno.FakeDatabase;
-import br.com.cwi.reset.andersonbruno.domain.Ator;
-import br.com.cwi.reset.andersonbruno.domain.Diretor;
-import br.com.cwi.reset.andersonbruno.domain.Filme;
-import br.com.cwi.reset.andersonbruno.domain.PersonagemAtor;
+import br.com.cwi.reset.andersonbruno.domain.*;
 import br.com.cwi.reset.andersonbruno.request.PersonagemRequest;
 import br.com.cwi.reset.andersonbruno.service.DiretorService;
 import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
@@ -57,7 +54,19 @@ public class FilmeService {
         diretorService.consultarDiretor(filmeRequest.getIdDiretor());
         personagemService.criarPersonagem(filmeRequest.getPersonagens());
         estudioService.consultarEstudio(filmeRequest.getIdEstudio());
+        List<Genero> generosRequest = filmeRequest.getGeneros();
+        if (filmeRequest.getGeneros().isEmpty()) {
+            throw new customExceptions("Deve ser informado pelo menos um gênero para o cadastro do filme.");
+        }
+        for (int i = 0; i < generosRequest.size(); i++) {
+            Genero genero1 = generosRequest.get(i);
+            for (int j = i + 1; j < generosRequest.size(); j++) {
+                Genero genero2 = generosRequest.get(j);
+                if (genero1.equals(genero2)) {
+                    throw new customExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
+                }
+            }
+        }
         
-
     }
 }
