@@ -1,23 +1,19 @@
-package br.com.cwi.reset.andersonbruno.domain;
+package br.com.cwi.reset.andersonbruno.request;
 
-public class PersonagemAtor {
+import br.com.cwi.reset.andersonbruno.domain.TipoAtuacao;
 
-    private Integer id;
+public class PersonagemRequest {
+
     private Integer idAtor;
     private String nomePersonagem;
     private String descricaoPersonagem;
     private TipoAtuacao tipoAtuacao;
 
-    public PersonagemAtor(Integer id, Integer idAtor, String nomePersonagem, String descricaoPersonagem, TipoAtuacao tipoAtuacao) {
-        this.id = id;
+    public PersonagemRequest(Integer idAtor, String nomePersonagem, String descricaoPersonagem, TipoAtuacao tipoAtuacao) {
         this.idAtor = idAtor;
         this.nomePersonagem = nomePersonagem;
         this.descricaoPersonagem = descricaoPersonagem;
         this.tipoAtuacao = tipoAtuacao;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public Integer getIdAtor() {

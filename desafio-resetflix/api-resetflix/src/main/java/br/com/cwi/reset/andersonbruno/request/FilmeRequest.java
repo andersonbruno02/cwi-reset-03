@@ -1,34 +1,31 @@
-package br.com.cwi.reset.andersonbruno.domain;
+package br.com.cwi.reset.andersonbruno.request;
+
+import br.com.cwi.reset.andersonbruno.domain.Genero;
+import br.com.cwi.reset.andersonbruno.domain.PersonagemAtor;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class Filme {
+public class FilmeRequest {
 
-    private Integer id;
     private String nome;
     private LocalDate anoLancamento;
     private String capaFilme;
     private List<Genero> generos;
     private Integer idDiretor;
-    private Integer IdDstudio;
+    private Integer idEstudio;
     private List<PersonagemAtor> personagens;
     private String resumo;
 
-    public Filme(Integer id, String nome, LocalDate anoLancamento, String capaFilme, List<Genero> generos, Integer idDiretor, Integer idDstudio, List<PersonagemAtor> personagens, String resumo) {
-        this.id = id;
+    public FilmeRequest(String nome, LocalDate anoLancamento, String capaFilme, List<Genero> generos, Integer idDiretor, Integer idEstudio, List<PersonagemAtor> personagens, String resumo) {
         this.nome = nome;
         this.anoLancamento = anoLancamento;
         this.capaFilme = capaFilme;
         this.generos = generos;
         this.idDiretor = idDiretor;
-        IdDstudio = idDstudio;
+        this.idEstudio = idEstudio;
         this.personagens = personagens;
         this.resumo = resumo;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getNome() {
@@ -51,8 +48,8 @@ public class Filme {
         return idDiretor;
     }
 
-    public Integer getIdDstudio() {
-        return IdDstudio;
+    public Integer getIdEstudio() {
+        return idEstudio;
     }
 
     public List<PersonagemAtor> getPersonagens() {
