@@ -67,6 +67,9 @@ public class FilmeService {
                 }
             }
         }
+        this.id++;
+        Filme filme = new Filme(this.id, filmeRequest.getNome(), filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(), filmeRequest.getGeneros(), filmeRequest.getIdDiretor(), filmeRequest.getIdEstudio(), filmeRequest.getPersonagens(), filmeRequest.getResumo());
+        fakeDatabase.persisteFilme(f);
 
     }
 

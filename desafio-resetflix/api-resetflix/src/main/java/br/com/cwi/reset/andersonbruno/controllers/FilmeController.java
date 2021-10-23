@@ -29,6 +29,6 @@ public class FilmeController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws customExceptions {
-        return this.filmeService.consultarFilmes(nomeFilme,nomeDiretor,nomePersonagem,nomeAtor);
+        return this.filmeService.consultarFilmes(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
     }
 }

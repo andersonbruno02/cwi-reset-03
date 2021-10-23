@@ -28,13 +28,13 @@ public class EstudioController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Estudio> consultarEstudios(String filtroNome) throws customExceptions{
+    public List<Estudio> consultarEstudios(String filtroNome) throws customExceptions {
         return this.estudioService.consultarEstudios(filtroNome);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Estudio consultarEstudio(@PathVariable Integer id) throws customExceptions{
+    public Estudio consultarEstudio(@PathVariable Integer id) throws customExceptions {
         return this.estudioService.consultarEstudio(id);
     }
 
