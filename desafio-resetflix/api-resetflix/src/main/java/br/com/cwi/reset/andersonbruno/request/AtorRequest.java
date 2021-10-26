@@ -1,14 +1,24 @@
 package br.com.cwi.reset.andersonbruno.request;
 
 import br.com.cwi.reset.andersonbruno.domain.StatusCarreira;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 public class AtorRequest {
 
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo nome.")
     private String nome;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo dataNascimento.")
+    @Past(message = "Mensagem do futuro")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo statusCarreira")
     private StatusCarreira statusCarreira;
+    @NotNull(message = "Campo obrigatório não informado. Favor informar o campo anoInicioAtividade")
     private Integer anoInicioAtividade;
 
     public AtorRequest(String nome, LocalDate dataNascimento, StatusCarreira statusCarreira, Integer anoInicioAtividade) {

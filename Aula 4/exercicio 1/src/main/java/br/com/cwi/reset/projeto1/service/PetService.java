@@ -48,6 +48,7 @@ public class PetService {
         if(petVerifica == null) {
             throw new PetNaoExistenteException("Pet com nome " + pet.getNome() + " não existe");
         }
+
         return repository.save(pet);
     }
 
