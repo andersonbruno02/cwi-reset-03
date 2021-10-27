@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public interface AtorRepositoryBd extends CrudRepository<Ator, Integer> {
     List<Ator> findByNomeContains(String nome);
+
     Ator findByNome(String nome);
+
     List<Ator> findAll();
 
-    //Ator findById(Integer id);
-    //Ator save();
 }

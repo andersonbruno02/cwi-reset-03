@@ -24,7 +24,7 @@ public class AtorController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void criarAtor(@RequestBody @Valid AtorRequest atorRequest) throws customExceptions {
-       atorService.criarAtor(atorRequest);
+        atorService.criarAtor(atorRequest);
     }
 
     @GetMapping
@@ -42,14 +42,16 @@ public class AtorController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Ator> consultarAtor(@PathVariable Integer id) throws customExceptions{
+    public Optional<Ator> consultarAtor(@PathVariable Integer id) throws customExceptions {
         return atorService.consultarAtor(id);
     }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void atualizarAtor(@PathVariable Integer id, @RequestBody @Valid AtorRequest atorRequest) throws customExceptions {
-        atorService.atualizarAtor(id,atorRequest);
+        atorService.atualizarAtor(id, atorRequest);
     }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void removerAtor(@PathVariable Integer id) throws customExceptions {

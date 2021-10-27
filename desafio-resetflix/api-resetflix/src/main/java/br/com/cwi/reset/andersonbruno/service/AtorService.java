@@ -95,8 +95,8 @@ public class AtorService {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo id");
         }
-        Optional<Ator> ator = repository.findById(id);
-        if (ator == null) {
+        boolean verificaAtor = repository.existsById(id);
+        if (!verificaAtor) {
             throw new customExceptions("Nenhum ator encontrado com o parâmetro id " + id + " favor verifique os parâmetros informados");
         }
         Ator novoAtor = new Ator(atorRequest.getNome(), atorRequest.getDataNascimento(), atorRequest.getStatusCarreira(), atorRequest.getAnoInicioAtividade());
