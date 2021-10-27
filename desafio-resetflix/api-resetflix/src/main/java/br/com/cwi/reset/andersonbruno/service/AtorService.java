@@ -66,7 +66,7 @@ public class AtorService {
         return atorFiltroNome;
     }
 
-    public Optional<Ator> consultarAtor(Integer id) throws customExceptions {
+    public Ator consultarAtor(Integer id) throws customExceptions {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo Id");
         }
@@ -74,20 +74,24 @@ public class AtorService {
         if (id > atores.size() || id <= 0) {
             throw new customExceptions("Nenhum ator encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
         }
-        Optional<Ator> ator = repository.findById(id);
+        Ator ator = repository.findById(id).get();
         return ator;
     }
 
     public List<Ator> consultarAtores(String filtroNome) throws customExceptions {
+        List<Ator> atores = repository.findAll();
+        if(atores.isEmpty()) {
+            throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
+        }
         if (filtroNome == null) {
             return repository.findAll();
         } else {
-            List<Ator> atores = repository.findByNomeContains(filtroNome);
-            if (atores.isEmpty()) {
-                throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
+            List<Ator> atoresFiltroNome = repository.findByNomeContains(filtroNome);
+            if (atoresFiltroNome.isEmpty()) {
+                throw new customExceptions("Ator não encontrato com o filtro " +filtroNome + ", favor informar outro filtro");
             }
 
-            return atores;
+            return atoresFiltroNome;
         }
     }
 
@@ -107,8 +111,8 @@ public class AtorService {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo id");
         }
-        Optional<Ator> ator = consultarAtor(id);
-        Ator atorDeletado = ator.get();
-        repository.delete(atorDeletado);
+        Ator ator = consultarAtor(id);
+
+        repository.delete(ator);
     }
 }

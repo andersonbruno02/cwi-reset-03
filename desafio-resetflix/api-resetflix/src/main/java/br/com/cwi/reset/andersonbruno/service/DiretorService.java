@@ -54,7 +54,7 @@ public class DiretorService {
         }
     }
 
-    public Optional<Diretor> consultarDiretor(Integer id) throws customExceptions {
+    public Diretor consultarDiretor(Integer id) throws customExceptions {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo Id");
         }
@@ -63,7 +63,7 @@ public class DiretorService {
             throw new customExceptions("Nenhum diretor encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
         }
 
-        Optional<Diretor> diretorId = diretorRepositoryBd.findById(id);
+        Diretor diretorId = diretorRepositoryBd.findById(id).get();
         return diretorId;
     }
 

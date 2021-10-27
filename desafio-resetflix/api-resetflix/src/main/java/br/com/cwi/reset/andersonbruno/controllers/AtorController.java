@@ -42,7 +42,7 @@ public class AtorController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Ator> consultarAtor(@PathVariable Integer id) throws customExceptions {
+    public Ator consultarAtor(@PathVariable Integer id) throws customExceptions {
         return atorService.consultarAtor(id);
     }
 

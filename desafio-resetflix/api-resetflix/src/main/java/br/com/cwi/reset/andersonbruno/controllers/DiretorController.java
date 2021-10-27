@@ -34,7 +34,7 @@ public class DiretorController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Diretor> consultarDiretor(@PathVariable Integer id) throws customExceptions {
+    public Diretor consultarDiretor(@PathVariable Integer id) throws customExceptions {
         return diretorService.consultarDiretor(id);
     }
 
