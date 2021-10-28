@@ -127,4 +127,15 @@ public class FilmeService {
         }
         return filmeFiltrado;
     }
+
+    public void removerFilme(Integer id) throws customExceptions {
+        if (id == null) {
+            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo id");
+        }
+        Optional<Filme> filme = filmeRepositoryBd.findById(id);
+        Filme filmeDeletado = filme.get();
+        filmeDeletado.getPersonagens();
+        personagemService.deletarPersonagens(filmeDeletado.getPersonagens());
+        filmeRepositoryBd.delete(filmeDeletado);
+    }
 }

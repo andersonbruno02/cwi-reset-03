@@ -30,4 +30,10 @@ public class FilmeController {
     public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws customExceptions {
         return filmeService.consultarFilmes(nomeFilme, nomeDiretor, nomePersonagem, nomeAtor);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void removerFilme(@PathVariable Integer id) throws customExceptions{
+        filmeService.removerFilme(id);
+    }
 }

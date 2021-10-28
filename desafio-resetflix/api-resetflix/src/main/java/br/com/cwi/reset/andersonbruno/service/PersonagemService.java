@@ -60,4 +60,13 @@ public class PersonagemService {
         }
         return personagemAtores;
     }
+
+    public void deletarPersonagens(List<PersonagemAtor> personagensAtor) throws customExceptions{
+        if (personagensAtor == null || personagensAtor.isEmpty()) {
+            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo personagens");
+        }
+        for (PersonagemAtor personagem : personagensAtor) {
+            personagemRepositoryBd.delete(personagem);
+        }
+    }
 }
