@@ -2,8 +2,10 @@ package br.com.cwi.reset.andersonbruno.service;
 
 import br.com.cwi.reset.andersonbruno.domain.Ator;
 import br.com.cwi.reset.andersonbruno.domain.AtorEmAtividade;
+import br.com.cwi.reset.andersonbruno.domain.PersonagemAtor;
 import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
 import br.com.cwi.reset.andersonbruno.repository.AtorRepositoryBd;
+import br.com.cwi.reset.andersonbruno.repository.PersonagemRepositoryBd;
 import br.com.cwi.reset.andersonbruno.request.AtorRequest;
 import br.com.cwi.reset.andersonbruno.domain.StatusCarreira;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +14,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 @Service
 public class AtorService {
 
     @Autowired
     private AtorRepositoryBd repository;
+    @Autowired
+    private PersonagemRepositoryBd personagemRepositoryBd;
 
     public Ator criarAtor(AtorRequest atorRequest) throws customExceptions {
 
@@ -80,7 +83,7 @@ public class AtorService {
 
     public List<Ator> consultarAtores(String filtroNome) throws customExceptions {
         List<Ator> atores = repository.findAll();
-        if(atores.isEmpty()) {
+        if (atores.isEmpty()) {
             throw new customExceptions("Nenhum ator cadastrado, favor cadastar atores.");
         }
         if (filtroNome == null) {
@@ -88,7 +91,7 @@ public class AtorService {
         } else {
             List<Ator> atoresFiltroNome = repository.findByNomeContains(filtroNome);
             if (atoresFiltroNome.isEmpty()) {
-                throw new customExceptions("Ator não encontrato com o filtro " +filtroNome + ", favor informar outro filtro");
+                throw new customExceptions("Ator não encontrato com o filtro " + filtroNome + ", favor informar outro filtro");
             }
 
             return atoresFiltroNome;
@@ -107,12 +110,17 @@ public class AtorService {
         novoAtor.setId(id);
         repository.save(novoAtor);
     }
-    public void removerAtor(Integer id) throws customExceptions{
+
+    public void removerAtor(Integer id) throws customExceptions {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo id");
         }
         Ator ator = consultarAtor(id);
-
-        repository.delete(ator);
+        List<PersonagemAtor> verificaPersonagens = personagemRepositoryBd.findByAtor(ator);
+        if (verificaPersonagens.isEmpty()) {
+            repository.delete(ator);
+        } else {
+            throw new customExceptions("Este ator está vinculado a um ou mais personagens, para remover o ator é necessário remover os seus personagens de atuação.");
+        }
     }
 }
