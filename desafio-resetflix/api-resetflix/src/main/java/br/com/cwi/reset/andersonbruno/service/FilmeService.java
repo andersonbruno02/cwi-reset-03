@@ -1,78 +1,54 @@
-//package br.com.cwi.reset.andersonbruno.service;
-//
-//import br.com.cwi.reset.andersonbruno.FakeDatabase;
-//import br.com.cwi.reset.andersonbruno.domain.*;
-//import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
-//import br.com.cwi.reset.andersonbruno.request.FilmeRequest;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Locale;
-//
-//public class FilmeService {
-//
-//    private Integer id = 0;
-//    private FakeDatabase fakeDatabase;
-//    private DiretorService diretorService;
-//    private AtorService atorService;
-//    private EstudioService estudioService;
-//    private PersonagemService personagemService;
-//
-//    public FilmeService(FakeDatabase fakeDatabase) {
-//        this.fakeDatabase = fakeDatabase;
-//        this.diretorService = new DiretorService(FakeDatabase.getInstance());
-//        this.estudioService = new EstudioService(FakeDatabase.getInstance());
-//        this.personagemService = new PersonagemService(FakeDatabase.getInstance());
-//    }
-//
-//    public void criarFilme(FilmeRequest filmeRequest) throws customExceptions {
-//        if (filmeRequest.getNome() == null || filmeRequest.getNome().equals("")) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo nome");
-//        }
-//        if (filmeRequest.getAnoLancamento() == null) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo anoLancamento");
-//        }
-//        if (filmeRequest.getCapaFilme() == null) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo capaFilme");
-//        }
-//        if (filmeRequest.getGeneros() == null) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo generos");
-//        }
-//        if (filmeRequest.getIdDiretor() == null) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo idDiretor");
-//        }
-//        if (filmeRequest.getIdEstudio() == null) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo idEstudio");
-//        }
-//        if (filmeRequest.getResumo() == null) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo resumo");
-//        }
-//        if (filmeRequest.getPersonagens() == null) {
-//            throw new customExceptions("Campo obrigatório não informado. Favor informar o campo personagens");
-//        }
-//
-//        diretorService.consultarDiretor(filmeRequest.getIdDiretor());
-//        personagemService.criarPersonagem(filmeRequest.getPersonagens());
-//        estudioService.consultarEstudio(filmeRequest.getIdEstudio());
-//        List<Genero> generosRequest = filmeRequest.getGeneros();
-//        if (filmeRequest.getGeneros().isEmpty()) {
-//            throw new customExceptions("Deve ser informado pelo menos um gênero para o cadastro do filme.");
-//        }
-//        for (int i = 0; i < generosRequest.size(); i++) {
-//            Genero genero1 = generosRequest.get(i);
-//            for (int j = i + 1; j < generosRequest.size(); j++) {
-//                Genero genero2 = generosRequest.get(j);
-//                if (genero1.equals(genero2)) {
-//                    throw new customExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
-//                }
-//            }
-//        }
-//        this.id++;
-//        //Filme filme = new Filme(this.id, filmeRequest.getNome(), filmeRequest.getAnoLancamento(), filmeRequest.getCapaFilme(), filmeRequest.getGeneros(), filmeRequest.getIdDiretor(), filmeRequest.getIdEstudio(), filmeRequest.getPersonagens(), filmeRequest.getResumo());
-//        //fakeDatabase.persisteFilme(filme);
-//
-//    }
-//
+package br.com.cwi.reset.andersonbruno.service;
+
+import br.com.cwi.reset.andersonbruno.domain.*;
+import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
+import br.com.cwi.reset.andersonbruno.repository.FilmeRepositoryBd;
+import br.com.cwi.reset.andersonbruno.request.FilmeRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+@Service
+public class FilmeService {
+
+    @Autowired
+    private FilmeRepositoryBd filmeRepositoryBd;
+    @Autowired
+    private DiretorService diretorService;
+    @Autowired
+    private EstudioService estudioService;
+    @Autowired
+    private PersonagemService personagemService;
+
+    public void criarFilme(FilmeRequest filmeRequest) throws customExceptions {
+
+        final Filme filme = new Filme(
+                filmeRequest.getNome(),
+                filmeRequest.getAnoLancamento(),
+                filmeRequest.getCapaFilme(),
+                filmeRequest.getGeneros(),
+                estudioService.consultarEstudio(filmeRequest.getIdEstudio()),
+                diretorService.consultarDiretor(filmeRequest.getIdDiretor()),
+                personagemService.cadastrarPersonagemFilme(filmeRequest.getPersonagens()),
+                filmeRequest.getResumo()
+        );
+
+        if (filme.getGeneros().isEmpty()) {
+            throw new customExceptions("Deve ser informado pelo menos um gênero para o cadastro do filme.");
+        }
+
+        final Set<Genero> generoSet = new HashSet<>();
+        for (Genero genero : filme.getGeneros()) {
+            if (generoSet.contains(genero)) {
+                throw new customExceptions("Não é permitido informar o mesmo gênero mais de uma vez para o mesmo filme.");
+            } else {
+                generoSet.add(genero);
+            }
+        }
+        filmeRepositoryBd.save(filme);
+    }
+
 //    public List<Filme> consultarFilmes(String nomeFilme, String nomeDiretor, String nomePersonagem, String nomeAtor) throws customExceptions {
 //        final List<Filme> filmes = fakeDatabase.recuperaFilmes();
 //
@@ -149,4 +125,4 @@
 //
 //        return filmes;
 //    }
-//}
+}
