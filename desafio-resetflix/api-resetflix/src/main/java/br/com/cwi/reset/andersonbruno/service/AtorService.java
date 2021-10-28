@@ -73,8 +73,8 @@ public class AtorService {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo Id");
         }
-        List<Ator> atores = repository.findAll();
-        if (id > atores.size() || id <= 0) {
+        boolean verificaAtor = repository.existsById(id);
+        if (!verificaAtor) {
             throw new customExceptions("Nenhum ator encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
         }
         Ator ator = repository.findById(id).get();

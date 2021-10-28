@@ -62,11 +62,10 @@ public class DiretorService {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo Id");
         }
-        List<Diretor> diretores = diretorRepositoryBd.findAll();
-        if (id > diretores.size() || id <= 0) {
+        boolean verificaDiretor = diretorRepositoryBd.existsById(id);
+        if (!verificaDiretor) {
             throw new customExceptions("Nenhum diretor encontrado com o parâmetro id= " + id + ", favor verifique os parâmetros informados.");
         }
-
         Diretor diretorId = diretorRepositoryBd.findById(id).get();
         return diretorId;
     }
@@ -83,6 +82,7 @@ public class DiretorService {
         novoDiretor.setId(id);
         diretorRepositoryBd.save(novoDiretor);
     }
+
     public void removerDiretores(Integer id) throws customExceptions {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo id");
@@ -90,11 +90,11 @@ public class DiretorService {
         Optional<Diretor> diretor = diretorRepositoryBd.findById(id);
         Diretor diretorDeletado = diretor.get();
         List<Filme> verificaFilmesDiretor = filmeRepositoryBd.findByDiretor(diretorDeletado);
-        if (verificaFilmesDiretor.isEmpty()){
+        if (verificaFilmesDiretor.isEmpty()) {
             diretorRepositoryBd.delete(diretorDeletado);
         } else {
             throw new customExceptions("Este diretor está vinculado a um ou mais filmes, para remover o diretor é necessário remover os seus filmes de participação.");
         }
     }
-    
+
 }

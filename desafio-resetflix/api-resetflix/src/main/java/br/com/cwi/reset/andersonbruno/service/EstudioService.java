@@ -47,8 +47,8 @@ public class EstudioService {
         if (id == null) {
             throw new customExceptions("Campo obrigatório não informado. Favor informar o campo id");
         }
-        List<Estudio> estudios = estudioRepositoryBd.findAll();
-        if (id > estudios.size() || id <= 0) {
+        boolean verificaEstudio = estudioRepositoryBd.existsById(id);
+        if (!verificaEstudio) {
             throw new customExceptions("Nenhum estúdio encontrado com o parâmetro id=" + id + ", favor verifique os parâmetros informados.");
         }
         Estudio estudioId = estudioRepositoryBd.findById(id).get();
