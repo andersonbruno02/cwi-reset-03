@@ -1,9 +1,11 @@
 package br.com.cwi.reset.andersonbruno.service;
 
+import br.com.cwi.reset.andersonbruno.domain.Filme;
 import br.com.cwi.reset.andersonbruno.exceptions.customExceptions;
 import br.com.cwi.reset.andersonbruno.domain.Diretor;
 
 import br.com.cwi.reset.andersonbruno.repository.DiretorRepositoryBd;
+import br.com.cwi.reset.andersonbruno.repository.FilmeRepositoryBd;
 import br.com.cwi.reset.andersonbruno.request.DiretorRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class DiretorService {
 
     @Autowired
     private DiretorRepositoryBd diretorRepositoryBd;
+    @Autowired
+    private FilmeRepositoryBd filmeRepositoryBd;
 
     public void cadastrarDiretor(DiretorRequest diretorRequest) throws customExceptions {
         if (!diretorRequest.getNome().contains(" ")) {
@@ -85,7 +89,12 @@ public class DiretorService {
         }
         Optional<Diretor> diretor = diretorRepositoryBd.findById(id);
         Diretor diretorDeletado = diretor.get();
-        diretorRepositoryBd.delete(diretorDeletado);
-
+        List<Filme> verificaFilmesDiretor = filmeRepositoryBd.findByDiretor(diretorDeletado);
+        if (verificaFilmesDiretor.isEmpty()){
+            diretorRepositoryBd.delete(diretorDeletado);
+        } else {
+            throw new customExceptions("Este diretor está vinculado a um ou mais filmes, para remover o diretor é necessário remover os seus filmes de participação.");
+        }
     }
+    
 }

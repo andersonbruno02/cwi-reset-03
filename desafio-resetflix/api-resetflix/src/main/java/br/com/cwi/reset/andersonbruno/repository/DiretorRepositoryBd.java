@@ -13,4 +13,5 @@ public interface DiretorRepositoryBd extends CrudRepository<Diretor, Integer> {
     Diretor findByNome(String nome);
 
     List<Diretor> findAll();
+
 }
