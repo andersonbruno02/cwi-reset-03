@@ -15,11 +15,16 @@ public class Exercicios1 {
     }
 
     public Double calcularMedia(List<Integer> numeros) {
-        double resultado = 0;
-        for (int numero : numeros) {
-            resultado += numero;
+        double resultado = 0.0;
+        if (numeros.isEmpty()) {
+            return 0.0;
+        } else {
+
+            for (double numero : numeros) {
+                resultado += numero;
+            }
+            resultado = resultado / numeros.size();
         }
-        resultado = resultado / numeros.size();
         return resultado;
     }
 

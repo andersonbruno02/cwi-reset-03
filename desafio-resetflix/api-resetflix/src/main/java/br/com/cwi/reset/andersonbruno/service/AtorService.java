@@ -118,7 +118,9 @@ public class AtorService {
         Ator ator = consultarAtor(id);
         List<PersonagemAtor> verificaPersonagens = personagemRepositoryBd.findByAtor(ator);
         if (verificaPersonagens.isEmpty()) {
+            ator.setId(ator.getId()-1);
             repository.delete(ator);
+
         } else {
             throw new customExceptions("Este ator está vinculado a um ou mais personagens, para remover o ator é necessário remover os seus personagens de atuação.");
         }
